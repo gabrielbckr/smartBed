@@ -45,7 +45,7 @@ void setup() {
   else {
     digitalWrite(LED_BUILTIN, LED_HIGH);
     Serial.println("mDNS responder started");
-    Serial.println("Use domain name nodemcu.local to access this device");
+    Serial.println("Use domain name nodemcu" + macAdress + ".local to access this device");
   }
   server.on("/", handleRoot);  //Associate handler function to path
   server.on("/status", handleGetStatusPage);  //Associate handler function to path
@@ -86,9 +86,9 @@ void handleGetStatusPage()
 
 void handleIndexPage()
 {
-    // server.send(200, new String(indexPage));
+    server.send(200, "text/html", String(indexPage));
 }
 void handleConnect()
 {
-    // server.send(200, connectPage);
+    server.send(200, "text/html", String(connectPage));
 }

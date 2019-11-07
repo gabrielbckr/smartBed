@@ -2,7 +2,7 @@
 	export string isntructions https://en.cppreference.com/w/cpp/language/string_literal
 */
 
-std::string indexPage = R"###( 
+String indexPage = R"###( 
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +55,7 @@ h3{
 </body>
 </html>)###";
 
-std::string connectPage = R"###(  
+String connectPage = R"###(  
     <html>
 <head>
 <style>
