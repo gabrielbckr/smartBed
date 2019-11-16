@@ -2,7 +2,7 @@
 	export string isntructions https://en.cppreference.com/w/cpp/language/string_literal
 */
 
-String indexPage = R"###( 
+String indexPage = R"###(
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,20 +43,22 @@ h3{
 <h1>SmartBed</h1>
 <p>Your alarm is set to [placeholder]. Currently [placeholder on/off]</p>
 <h3>Configure your alarm</h3>
-<form action=\"https://lmgtfy.com/?q=voc%C3%AA+%C3%A9+um+bob%C3%A3o&s=g&iie=1//[\" method=\"get/\">
+<form method="get">
 	<p>Set Status</p>
-	<input class=\"ckeckInput\" type=\"radio\" name=\"alarmStatus\" value=\"on\">On
-	<input class=\"ckeckInput\" type=\"radio\" name=\"alarmStatus\"value=\"on\">Off
+	<input class="checkInput" type="radio" name="alarmStatus" value="on">On
+	<input class="checkInput" type="radio" name="alarmStatus"value="on">Off
 	<h3>Time setup</h3>
-	<input class=\"timeInput\" type=\"time\" name=\"alarmTime\">
-	<input class=\"sendButton\" type=\"submit\" value=\"Send\">
+	<input class="timeInput" type="time" name="alarmTime">
+	<input class="sendButton" type="submit" value="Send">
 </form>
 
 </body>
-</html>)###";
+</html>
+)###";
 
-String connectPage = R"###(  
-    <html>
+String connectPage = R"###(
+<!DOCTYPE html>
+<html>
 <head>
 <style>
 *{
@@ -95,14 +97,22 @@ h3{
 <h1>SmartBed</h1>
 <p>Login to a internet wifi network </p>
 <h3>Enter yout login credentials</h3>
-<form action=\"https://lmgtfy.com/?q=voc%C3%AA+%C3%A9+um+bob%C3%A3o&s=g&iie=1\" method=\"get\">
+<form method="get">
 	<p>Connection Name</p>
-	<input class=\"ckeckInput\" type=\"text\" name=\"ssid\" >
+	<input class="checkInput" type="text" name="ssid" id="ssid" >
 	<p>Password</p>
-	<input class=\"ckeckInput\" type=\"text\" name=\"passWorrd\" ><br>
-	<input class=\"sendButton\" type=\"submit\" value=\"Login\">
+	<input class="checkInput" type="text" name="passWord" id="passWord" ><br>
+	<input class="sendButton" type="submit" value="Login" onclick="Clicked()">
 </form>
 
 </body>
 </html>
+<script>
+	function Clicked()
+	{
+  		// Display a message.
+		var wifissid = document.getElementById("ssid").value;
+		alert("You typed " + wifissid);
+	}
+</script>
 )###";  
