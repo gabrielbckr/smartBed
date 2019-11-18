@@ -72,7 +72,7 @@ void setup() {
   }
   server.on("/", handleRoot);  
   server.on("/status", handleGetStatusPage);
-  server.on("/index" + String(alarmIsOn), handleIndexPage);
+  server.on("/index", handleIndexPage);
   server.on("/connect", handleConnect);
   
   server.begin();           
