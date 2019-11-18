@@ -36,15 +36,22 @@ h3{
 <body>
 
 <h1>SmartBed</h1>
-<p>Your alarm is set to [placeholder]. Currently [placeholder on/off]</p>
+<p id="alarmTime_onOff"></p>
 <h3>Configure your alarm</h3>
 <form method="get">
 	<p>Set Status</p>
 	<input class="checkInput" type="radio" name="alarmStatus" value="on">On
-	<input class="checkInput" type="radio" name="alarmStatus"value="on">Off
+	<input class="checkInput" type="radio" name="alarmStatus" value="off">Off
 	<h3>Time setup</h3>
 	<input class="timeInput" type="time" name="alarmTime">
 	<input class="sendButton" type="submit" value="Send">
+	<script>
+		// Adapted from examples on the Querystring homepage.
+		var qs = new Querystring();
+		var alarmTime = qs.get("alarmTime");
+		var alarmStatus = qs.get("alarmStatus");
+		document.getElementById("alarmTime_onOff").innerHTML = "Your alarm is set to " + alarmTime + ". Currently " + alarmStatus;
+	</script>
 </form>
 
 </body>

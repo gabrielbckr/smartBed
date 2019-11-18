@@ -43,7 +43,7 @@ h3{
 	<input class="checkInput" type="text" name="ssid" id="ssid" >
 	<p>Password</p>
 	<input class="checkInput" type="text" name="passWord" id="passWord" ><br>
-	<input class="sendButton" type="submit" value="Login" onclick="Clicked()">
+	<input class="sendButton" type="submit" value="Login" formmethod="post" onclick="Clicked()">
 </form>
 
 </body>
@@ -53,6 +53,6 @@ h3{
 	{
   		// Display a message.
 		var wifissid = document.getElementById("ssid").value;
-		alert("You typed " + wifissid);
+		var wifipswd = document.getElementById("passWord").value;
 	}
 </script>

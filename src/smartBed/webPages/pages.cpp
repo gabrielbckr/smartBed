@@ -46,7 +46,7 @@ h3{
 <form method="get">
 	<p>Set Status</p>
 	<input class="checkInput" type="radio" name="alarmStatus" value="on">On
-	<input class="checkInput" type="radio" name="alarmStatus"value="on">Off
+	<input class="checkInput" type="radio" name="alarmStatus" value="off">Off
 	<h3>Time setup</h3>
 	<input class="timeInput" type="time" name="alarmTime">
 	<input class="sendButton" type="submit" value="Send">

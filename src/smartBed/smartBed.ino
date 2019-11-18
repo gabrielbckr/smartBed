@@ -2,9 +2,8 @@
 #include <ESP8266WiFiMulti.h>  
 #include <ESP8266mDNS.h>  
 #include <ESP8266WebServer.h>
-#include <RtcDS3231.h> 
-#include <Wire.h> 
 
+#include "myRTC.h"
 #include "./webPages/pages.cpp"
 
 const uint8_t LED_HIGH = 0;
@@ -15,17 +14,31 @@ const String HOSTNAME = "smartbed";
 String wifiSSID = "";
 String wifiPSWD = "";
 
+int alarmHour = 0;
+int alarmMinute = 0;
+bool alarmIsOn = false;
+
+const int rtcSquareWavePin = D5;
+volatile bool interuptFlag = false;
+
 int LED_STATUS = LED_LOW;
 
 ESP8266WiFiMulti wifiMulti;   
 ESP8266WebServer server(80);
 
-RtcDS3231<TwoWire> rtc(Wire);
+void ICACHE_RAM_ATTR ISR()
+{
+    // since this interupted any other running code,
+    // don't do anything that takes long and especially avoid
+    // any communications calls within this routine
+    interuptFlag = true;
+}
 
 void setup() {
   Serial.begin(115200);
-  rtc.Begin();
+  initializeRTCandALARM(rtcSquareWavePin);
   WiFi.mode(WIFI_STA);
+  // set the interupt pin to input mode
   pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, LED_LOW);
   delay(10);
@@ -59,11 +72,13 @@ void setup() {
   }
   server.on("/", handleRoot);  
   server.on("/status", handleGetStatusPage);
-  server.on("/index", handleIndexPage); 
-  server.on("/connect", handleConnect); 
+  server.on("/index" + String(alarmIsOn), handleIndexPage);
+  server.on("/connect", handleConnect);
   
   server.begin();           
-  Serial.print("HTTP server started.");
+  Serial.println("HTTP server started.");
+  // setup external interupt
+  attachInterrupt(digitalPinToInterrupt(rtcSquareWavePin), ISR, FALLING);
 }
 
 void loop() {
@@ -91,10 +106,19 @@ void handleGetStatusPage()
 {
     server.send(200, "text/plain", "The status of the device is { ledStatus:\""
       +String(LED_STATUS)+"\"}");
+    Serial.print("Alarme: ");
+    Serial.print(getAlarmHour());
+    Serial.print(":");
+    Serial.println(getAlarmMinute());
 }
 
 void handleIndexPage()
 {
+    Serial.println("Argumentos: " + String(server.args()));
+    for(int ii=0; ii<server.args(); ii++)
+    {
+      Serial.println(server.arg(ii));
+    }
     server.send(200, "text/html", String(indexPage));
 }
 
