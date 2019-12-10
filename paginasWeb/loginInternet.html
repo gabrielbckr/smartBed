@@ -38,13 +38,21 @@ h3{
 <h1>SmartBed</h1>
 <p>Login to a internet wifi network </p>
 <h3>Enter yout login credentials</h3>
-<form action="https://lmgtfy.com/?q=voc%C3%AA+%C3%A9+um+bob%C3%A3o&s=g&iie=1" method="get">
+<form method="get">
 	<p>Connection Name</p>
-	<input class="ckeckInput" type="text" name="ssid" >
+	<input class="checkInput" type="text" name="ssid" id="ssid" >
 	<p>Password</p>
-	<input class="ckeckInput" type="text" name="passWorrd" ><br>
-	<input class="sendButton" type="submit" value="Login">
+	<input class="checkInput" type="text" name="passWord" id="passWord" ><br>
+	<input class="sendButton" type="submit" value="Login" formmethod="post" onclick="Clicked()">
 </form>
 
 </body>
 </html>
+<script>
+	function Clicked()
+	{
+  		// Display a message.
+		var wifissid = document.getElementById("ssid").value;
+		var wifipswd = document.getElementById("passWord").value;
+	}
+</script>
